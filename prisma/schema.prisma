@@ -16,7 +16,7 @@ datasource db {
 model User {
   id       String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   username String   @unique
-  email    String   @unique
+  email    String
   password String
   name     String?
   role     Role     @default(USER)
@@ -31,7 +31,7 @@ model Profile {
   id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   bio    String
   user   User   @relation(fields: [userId], references: [id])
-  userId String @unique
+  userId String @unique @db.Uuid
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -42,7 +42,7 @@ model Post {
   title      String
   published  Boolean    @default(false)
   author     User       @relation(fields: [authorId], references: [id])
-  authorId   String
+  authorId   String     @db.Uuid
   categories Category[]
 
   createdAt DateTime @default(now())
