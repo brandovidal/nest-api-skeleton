@@ -1,0 +1,6 @@
+POST http://localhost:3000/api/people/create
+Content-Type: application/json
+
+{
+  "name": "Yoda"
+}
