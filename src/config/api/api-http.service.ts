@@ -3,10 +3,10 @@ import { HttpService } from '@nestjs/axios'
 import { lastValueFrom } from 'rxjs'
 
 @Injectable()
-export class ApiService {
+export class ApiHttpService {
   constructor(private readonly httpService: HttpService) {}
 
-  async getData(url: string): Promise<any> {
+  async getData<T>(url: string): Promise<T> {
     const response = await lastValueFrom(this.httpService.get(url))
     return response.data
   }
