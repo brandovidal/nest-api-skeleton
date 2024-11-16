@@ -1,10 +1,7 @@
-import { UseInterceptors } from '@nestjs/common';
+import { UseInterceptors } from '@nestjs/common'
 
-import {
-  ClassContrustor,
-  EntityInterceptor,
-} from '../serializers/entity.serializer';
+import { ClassContrustor, EntityInterceptor } from '../serializers/entity.serializer'
 
 export function Entity(dto: ClassContrustor) {
-  return UseInterceptors(new EntityInterceptor(dto));
+  return UseInterceptors(new EntityInterceptor(dto))
 }

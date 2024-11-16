@@ -1,14 +1,14 @@
-import { Module } from '@nestjs/common';
+import { Module } from '@nestjs/common'
 
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { TypeOrmModule } from '@nestjs/typeorm'
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule.forRoot({ isGlobal: true })],
       useFactory: async (configService: ConfigService) => {
-        const host = configService.get('DATABASE_HOST');
+        const host = configService.get('DATABASE_HOST')
 
         return {
           type: 'mysql',
@@ -19,7 +19,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
           database: configService.get('DATABASE_NAME'),
           autoLoadEntities: true,
           synchronize: true,
-        };
+        }
       },
       inject: [ConfigService],
     }),

@@ -1,12 +1,12 @@
-import { NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
+import { NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common'
 
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs'
+import { map } from 'rxjs/operators'
 
-import { plainToClass } from 'class-transformer';
+import { plainToClass } from 'class-transformer'
 
 export interface ClassContrustor {
-  new (...args: any[]): object;
+  new (...args: any[]): object
 }
 
 export class EntityInterceptor implements NestInterceptor {
@@ -17,8 +17,8 @@ export class EntityInterceptor implements NestInterceptor {
         return plainToClass(this.dto, data, {
           excludeExtraneousValues: true,
           exposeUnsetFields: false,
-        });
+        })
       }),
-    );
+    )
   }
 }

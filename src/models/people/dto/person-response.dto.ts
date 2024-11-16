@@ -1,9 +1,9 @@
-import { Expose } from 'class-transformer';
+import { Expose } from 'class-transformer'
 
 export class PersonResponseDto {
   @Expose()
-  id: string;
+  id: string
 
   @Expose({ name: 'name' })
-  nombre: string;
+  nombre: string
 }
