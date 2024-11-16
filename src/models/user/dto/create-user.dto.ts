@@ -3,6 +3,7 @@ import { Role } from '@prisma/client'
 
 import { object, string, nativeEnum } from 'zod'
 
+// TODO: Move schemas to validations in common
 const schema = object({
   username: string({ required_error: 'Enter your username.', invalid_type_error: 'Validate your username.' })
     .trim()
