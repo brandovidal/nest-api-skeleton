@@ -1,24 +1,14 @@
 import { createZodDto } from 'nestjs-zod'
-import { Role } from '@prisma/client'
 
-import { object, string, nativeEnum } from 'zod'
+import { object } from 'zod'
+import { baseSchema } from '@/common/validations/schema.validation'
 
-// TODO: Move schemas to validations in common
 const schema = object({
-  username: string({ required_error: 'Enter your username.', invalid_type_error: 'Validate your username.' })
-    .trim()
-    .min(3, { message: 'Enter 3 characters as minimum.' }),
-  email: string({ required_error: 'Enter your email.', invalid_type_error: 'Validate your email.' })
-    .trim()
-    .min(5, { message: 'Enter 5 characters as minimum.' })
-    .email({
-      message: 'Enter a valid email.'
-    }),
-  password: string({ required_error: 'Enter your password.', invalid_type_error: 'Validate your password.' })
-    .trim()
-    .min(6, { message: 'Enter 6 characters as minimum.' }),
-  name: string({ required_error: 'Enter your name.', invalid_type_error: 'Validate your name.' }).trim().nullish(),
-  role: nativeEnum(Role).default(Role.USER)
+  username: baseSchema.username,
+  email: baseSchema.email,
+  password: baseSchema.password,
+  name: baseSchema.name.nullish(),
+  role: baseSchema.role
 })
 
 export class CreateUserDto extends createZodDto(schema) {}

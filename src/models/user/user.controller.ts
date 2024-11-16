@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Logger } from '@nestjs/common'
+import { Controller, Get, Post, Body, Put, Param, Delete, Logger } from '@nestjs/common'
 
 import { ResponseMessage } from '@/common/decorators/response-message.decorator'
 
@@ -15,8 +15,8 @@ export class UserController {
 
   @Post('create')
   @ResponseMessage('User has been successfully created')
-  async create(@Body() createUserDto: CreateUserDto) {
-    return await this.userService.create(createUserDto)
+  async create(@Body() createDto: CreateUserDto) {
+    return await this.userService.create(createDto)
   }
 
   @Get('all')
@@ -31,10 +31,10 @@ export class UserController {
     return await this.userService.findOne(id)
   }
 
-  @Patch(':id')
+  @Put(':id')
   @ResponseMessage('User has been successfully updated')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return await this.userService.update(id, updateUserDto)
+  async update(@Param('id') id: string, @Body() updateDto: UpdateUserDto) {
+    return await this.userService.update(id, updateDto)
   }
 
   @Delete(':id')
