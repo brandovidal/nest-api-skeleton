@@ -2,10 +2,11 @@ import { Injectable, NestInterceptor, ExecutionContext, CallHandler, HttpExcepti
 import { Observable, throwError } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 
-import { format } from 'date-fns'
 import { Reflector } from '@nestjs/core'
 
 import { RESPONSE_MESSAGE_METADATA } from '../decorators/response-message.decorator'
+
+import dayjs from 'dayjs'
 
 export type Response<T> = {
   status: boolean
@@ -40,7 +41,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
       path: request.url,
       message: exception.message,
       exception: exception,
-      timestamp: format(new Date().toISOString(), 'yyyy-MM-dd HH:mm:ss'),
+      timestamp: dayjs(new Date().toISOString()).format('YYYY-MM-DD HH:mm:ss'),
     })
   }
 
@@ -57,7 +58,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
       message: message,
       statusCode,
       data: res,
-      timestamp: format(new Date().toISOString(), 'yyyy-MM-dd HH:mm:ss'),
+      timestamp: dayjs(new Date().toISOString()).format('YYYY-MM-DD HH:mm:ss'),
     }
   }
 }
