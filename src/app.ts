@@ -1,12 +1,14 @@
 import { NestFactory, Reflector } from '@nestjs/core'
 
-import { ZodValidationPipe } from 'nestjs-zod'
+import { patchNestJsSwagger, ZodValidationPipe } from 'nestjs-zod'
 
-// import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
 import { AppModule } from './app.module'
 
 import { ResponseInterceptor } from './common/serializers/response.serializer'
+
+import { DOCUMENT_DESCRIPTION, DOCUMENT_TITLE, DOCUMENT_VERSION } from './common/constants/documentation.constant'
 
 export async function App() {
   const app = await NestFactory.create(AppModule)
@@ -17,9 +19,12 @@ export async function App() {
 
   app.useGlobalPipes(new ZodValidationPipe())
 
-  // const config = new DocumentBuilder().setTitle('People by Star Wars').setDescription('The Star Wars API people').setVersion('1.0').build()
-  // const document = SwaggerModule.createDocument(app, config)
-  // SwaggerModule.setup('docs', app, document)
+  // generate schemas with Zod in Swagger
+  patchNestJsSwagger()
+
+  const config = new DocumentBuilder().setTitle(DOCUMENT_TITLE).setDescription(DOCUMENT_DESCRIPTION).setVersion(DOCUMENT_VERSION).build()
+  const document = SwaggerModule.createDocument(app, config)
+  SwaggerModule.setup('docs', app, document)
 
   return app
 }
