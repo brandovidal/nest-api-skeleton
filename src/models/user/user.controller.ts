@@ -20,7 +20,7 @@ export class UserController {
   }
 
   @Get('all')
-  @ResponseMessage('Users have been successfully retrieved')
+  @ResponseMessage('All users have been successfully retrieved')
   async findAll() {
     return await this.userService.findAll()
   }
