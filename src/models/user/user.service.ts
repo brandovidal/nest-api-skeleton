@@ -1,16 +1,16 @@
 import { Logger, Injectable } from '@nestjs/common'
 
+import { PostgresRepository } from '@/config/database/postgres/repository.service'
+
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 
-import { PostgresRepository } from '@/providers/database/postgres/repository.service'
 import { UserCreateInput, UserUpdateInput } from './entities/user.entity'
 
 @Injectable()
 export class UserService {
   private readonly logger = new Logger(UserService.name)
-
-  constructor(private repository: PostgresRepository) {}
+  private readonly repository = new PostgresRepository()
 
   async create(createDto: CreateUserDto) {
     const data: UserCreateInput = {
