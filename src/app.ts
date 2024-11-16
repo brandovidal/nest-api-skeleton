@@ -13,9 +13,9 @@ export async function App() {
 
   app.setGlobalPrefix('api')
 
-  app.useGlobalPipes(new ZodValidationPipe())
-
   app.useGlobalInterceptors(new ResponseInterceptor(app.get(Reflector)))
+
+  app.useGlobalPipes(new ZodValidationPipe())
 
   // const config = new DocumentBuilder().setTitle('People by Star Wars').setDescription('The Star Wars API people').setVersion('1.0').build()
   // const document = SwaggerModule.createDocument(app, config)

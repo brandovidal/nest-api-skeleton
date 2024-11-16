@@ -1,5 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
 
+import { ResponseMessage } from '@/common/decorators/response-message.decorator'
+
 import { UserService } from './user.service'
 
 import { CreateUserDto } from './dto/create-user.dto'
@@ -10,6 +12,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('create')
+  @ResponseMessage('User has been successfully created')
   async create(@Body() createUserDto: CreateUserDto) {
     return await this.userService.create(createUserDto)
   }
