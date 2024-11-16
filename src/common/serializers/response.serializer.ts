@@ -1,6 +1,7 @@
 import { Injectable, NestInterceptor, ExecutionContext, CallHandler, HttpException, HttpStatus, Logger } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { ZodSerializationException } from 'nestjs-zod'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 
 import { Observable, throwError } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
@@ -17,7 +18,6 @@ export type Response<T> = {
   data: T
   timestamp: string
   errors?: any
-  stack?: string
 }
 
 @Injectable()
@@ -44,7 +44,10 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
     let errors
     if (exception.name === 'ZodValidationException') {
       const zodError = (exception as ZodSerializationException).getZodError()
-      errors = zodError.errors
+      errors = zodError.issues ?? zodError.errors
+    } else if (exception.name === 'PrismaClientKnownRequestError') {
+      const prismaError = exception as unknown as PrismaClientKnownRequestError
+      errors = prismaError?.meta ?? prismaError.code
     } else if (exception instanceof HttpException) {
       errors = exception.message
     } else {
@@ -57,10 +60,9 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
       path: request.url,
       message: exception.message,
       timestamp: dayjs(new Date().toISOString()).format('YYYY-MM-DD HH:mm:ss'),
-      errors: errors,
-      stack: exception.stack
+      errors: errors
     }
-    this.logger.warn({ ...result, request: request.body ?? request.query ?? request.params })
+    this.logger.log({ ...result, request: request.body ?? request.query ?? request.params })
 
     response.status(status).json(result)
   }

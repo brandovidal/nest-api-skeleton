@@ -16,26 +16,29 @@ export class UserController {
   @Post('create')
   @ResponseMessage('User has been successfully created')
   async create(@Body() createUserDto: CreateUserDto) {
-    this.logger.log(`Request to create user: ${JSON.stringify(createUserDto)}`)
     return await this.userService.create(createUserDto)
   }
 
   @Get('all')
+  @ResponseMessage('Users have been successfully retrieved')
   findAll() {
     return this.userService.findAll()
   }
 
   @Get(':id')
+  @ResponseMessage('User has been successfully retrieved')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id)
   }
 
   @Patch(':id')
+  @ResponseMessage('User has been successfully updated')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto)
   }
 
   @Delete(':id')
+  @ResponseMessage('User has been successfully deleted')
   remove(@Param('id') id: string) {
     return this.userService.remove(id)
   }
