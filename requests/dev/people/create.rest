@@ -1,6 +1,0 @@
-POST http://localhost:5000/api/people/create
-Content-Type: application/json
-
-{
-  "name": "Yoda"
-}

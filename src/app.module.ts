@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 
-import { LoggerModule } from './common/utils/logger/logger.module'
+import { LoggerModule } from './providers/logger/logger.module'
 import { PostgresProviderModule } from './providers/database/postgres/provider.module'
 import { ApiProviderModule } from './providers/api/provider.module'
 
