@@ -16,10 +16,10 @@ const mockPeopleService = {
   findAll: jest.fn(),
   findOne: jest.fn(),
   update: jest.fn(),
-  remove: jest.fn(),
+  remove: jest.fn()
 }
 const mockApiService = {
-  getData: jest.fn(),
+  getData: jest.fn()
 }
 
 describe('PeopleController', () => {
@@ -33,8 +33,8 @@ describe('PeopleController', () => {
         { provide: PeopleService, useValue: mockPeopleService },
         ApiService,
         { provide: HttpService, useValue: mockApiService },
-        ConfigService,
-      ],
+        ConfigService
+      ]
     }).compile()
 
     controller = app.get<PeopleController>(PeopleController)
@@ -49,13 +49,13 @@ describe('PeopleController', () => {
       const createPersonDto = {
         id: 1,
         name: 'test',
-        deletedAt: null,
+        deletedAt: null
       } as CreatePersonDto
 
       const person = {
         id: 1,
         name: 'test',
-        deletedAt: null,
+        deletedAt: null
       } as Person
 
       jest.spyOn(mockPeopleService, 'create').mockReturnValue(person)
@@ -74,7 +74,7 @@ describe('PeopleController', () => {
       const person = {
         id: 1,
         name: 'test',
-        deletedAt: null,
+        deletedAt: null
       } as Person
       const people = [person]
 

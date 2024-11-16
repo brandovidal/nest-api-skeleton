@@ -18,11 +18,11 @@ import { TypeOrmModule } from '@nestjs/typeorm'
           password: configService.get('DATABASE_PASSWORD'),
           database: configService.get('DATABASE_NAME'),
           autoLoadEntities: true,
-          synchronize: true,
+          synchronize: true
         }
       },
-      inject: [ConfigService],
-    }),
-  ],
+      inject: [ConfigService]
+    })
+  ]
 })
 export class MysqlModule {}

@@ -7,6 +7,6 @@ import { PostgresProviderService } from '@/providers/database/postgres/provider.
 
 @Module({
   controllers: [UserController],
-  providers: [UserService, PostgresProviderService],
+  providers: [UserService, PostgresProviderService]
 })
 export class UserModule {}

@@ -27,7 +27,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
   intercept(context: ExecutionContext, next: CallHandler): Observable<Response<T>> {
     return next.handle().pipe(
       map((res: unknown) => this.responseHandler(res, context)),
-      catchError((err: HttpException) => throwError(() => this.errorHandler(err, context))),
+      catchError((err: HttpException) => throwError(() => this.errorHandler(err, context)))
     )
   }
 
@@ -56,7 +56,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
       message: exception.message,
       timestamp: dayjs(new Date().toISOString()).format('YYYY-MM-DD HH:mm:ss'),
       errors: errors,
-      stack: exception.stack,
+      stack: exception.stack
     })
   }
 
@@ -75,7 +75,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
       message: message,
       status,
       data: res,
-      timestamp: dayjs(new Date().toISOString()).format('YYYY-MM-DD HH:mm:ss'),
+      timestamp: dayjs(new Date().toISOString()).format('YYYY-MM-DD HH:mm:ss')
     }
   }
 }

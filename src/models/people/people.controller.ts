@@ -19,7 +19,7 @@ export class PeopleController {
   constructor(
     private readonly configService: ConfigService,
     private readonly apiService: ApiService,
-    private readonly peopleService: PeopleService,
+    private readonly peopleService: PeopleService
   ) {
     this.swapiApiUrl = this.configService.get('SWAPI_API_URL') ?? 'api'
   }
@@ -36,7 +36,7 @@ export class PeopleController {
     }
 
     const createPersonDto: BulkCreatePersonDto[] = people.map((person) => ({
-      name: person.name,
+      name: person.name
     }))
     return this.peopleService.bulkCreate(createPersonDto)
   }

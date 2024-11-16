@@ -14,7 +14,7 @@ export class UserService {
     const data: UserCreateInput = {
       username: createUserDto.username,
       email: createUserDto.email,
-      password: createUserDto.password,
+      password: createUserDto.password
     }
 
     return await this.provider.user.create({ data })
@@ -29,7 +29,7 @@ export class UserService {
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`
+    return `This action updates a #${id} user, ${JSON.stringify(updateUserDto)}}`
   }
 
   remove(id: string) {

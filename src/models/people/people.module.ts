@@ -13,6 +13,6 @@ import { ApiService } from '../../providers/api/api.service'
 @Module({
   imports: [HttpModule, TypeOrmModule.forFeature([Person])],
   controllers: [PeopleController],
-  providers: [PeopleService, ApiService],
+  providers: [PeopleService, ApiService]
 })
 export class PeopleModule {}

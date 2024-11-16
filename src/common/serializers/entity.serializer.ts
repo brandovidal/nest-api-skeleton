@@ -16,9 +16,9 @@ export class EntityInterceptor implements NestInterceptor {
       map((data: ClassContrustor) => {
         return plainToClass(this.dto, data, {
           excludeExtraneousValues: true,
-          exposeUnsetFields: false,
+          exposeUnsetFields: false
         })
-      }),
+      })
     )
   }
 }
