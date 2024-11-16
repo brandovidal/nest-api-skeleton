@@ -8,7 +8,7 @@ import { UserCreateInput } from './entities/user.entity'
 
 @Injectable()
 export class UserService {
-  private logger = new Logger(UserService.name)
+  private readonly logger = new Logger(UserService.name)
 
   constructor(private provider: PostgresProviderService) {}
 
