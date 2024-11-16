@@ -4,7 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 
 import { PostgresProviderService } from '@/providers/database/postgres/provider.service'
-import { UserCreateInput } from './entities/user.entity'
+import { UserCreateInput, UserUpdateInput } from './entities/user.entity'
 
 @Injectable()
 export class UserService {
@@ -12,17 +12,17 @@ export class UserService {
 
   constructor(private provider: PostgresProviderService) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createDto: CreateUserDto) {
     const data: UserCreateInput = {
-      username: createUserDto.username,
-      email: createUserDto.email,
-      password: createUserDto.password
+      username: createDto.username,
+      email: createDto.email,
+      password: createDto.password
     }
     return await this.provider.user.create({ data })
   }
 
-  findAll() {
-    return this.provider.user.findMany({
+  async findAll() {
+    return await this.provider.user.findMany({
       include: {
         profile: true,
         posts: true
@@ -30,15 +30,20 @@ export class UserService {
     })
   }
 
-  findOne(id: string) {
-    return this.provider.user.findUnique({ where: { id } })
+  async findOne(id: string) {
+    return await this.provider.user.findUnique({ where: { id } })
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user, ${JSON.stringify(updateUserDto)}}`
+  async update(id: string, updateDto: UpdateUserDto) {
+    const data: UserUpdateInput = {
+      username: updateDto.username,
+      email: updateDto.email,
+      password: updateDto.password
+    }
+    return await this.provider.user.update({ data, where: { id } })
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     return `This action removes a #${id} user`
   }
 }
