@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
+import { Controller, Get, Post, Body, Patch, Param, Delete, Logger } from '@nestjs/common'
 
 import { ResponseMessage } from '@/common/decorators/response-message.decorator'
 
@@ -9,11 +9,14 @@ import { UpdateUserDto } from './dto/update-user.dto'
 
 @Controller('user')
 export class UserController {
+  private readonly logger = new Logger(UserController.name)
+
   constructor(private readonly userService: UserService) {}
 
   @Post('create')
   @ResponseMessage('User has been successfully created')
   async create(@Body() createUserDto: CreateUserDto) {
+    this.logger.log(`Request to create user: ${JSON.stringify(createUserDto)}`)
     return await this.userService.create(createUserDto)
   }
 

@@ -1,4 +1,4 @@
-import { Injectable, NestInterceptor, ExecutionContext, CallHandler, HttpException, HttpStatus } from '@nestjs/common'
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler, HttpException, HttpStatus, Logger } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { ZodSerializationException } from 'nestjs-zod'
 
@@ -22,6 +22,8 @@ export type Response<T> = {
 
 @Injectable()
 export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
+  private readonly logger = new Logger(ResponseInterceptor.name)
+
   constructor(private reflector: Reflector) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<Response<T>> {
@@ -49,7 +51,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
       errors = exception
     }
 
-    response.status(status).json({
+    const result = {
       success: false,
       status,
       path: request.url,
@@ -57,7 +59,10 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
       timestamp: dayjs(new Date().toISOString()).format('YYYY-MM-DD HH:mm:ss'),
       errors: errors,
       stack: exception.stack
-    })
+    }
+    this.logger.warn({ ...result, request: request.body ?? request.query ?? request.params })
+
+    response.status(status).json(result)
   }
 
   responseHandler(res: any, context: ExecutionContext) {
@@ -69,7 +74,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
     const status = response.statusCode
     const message = this.reflector.get<string>(RESPONSE_MESSAGE_METADATA, context.getHandler()) || 'success'
 
-    return {
+    const result = {
       success: true,
       path: request.url,
       message: message,
@@ -77,5 +82,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
       data: res,
       timestamp: dayjs(new Date().toISOString()).format('YYYY-MM-DD HH:mm:ss')
     }
+    this.logger.log({ ...result, request: request.body ?? request.query ?? request.params })
+    return result
   }
 }

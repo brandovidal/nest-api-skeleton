@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Logger, Injectable } from '@nestjs/common'
 
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
@@ -8,6 +8,8 @@ import { UserCreateInput } from './entities/user.entity'
 
 @Injectable()
 export class UserService {
+  private logger = new Logger(UserService.name)
+
   constructor(private provider: PostgresProviderService) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -16,7 +18,6 @@ export class UserService {
       email: createUserDto.email,
       password: createUserDto.password
     }
-
     return await this.provider.user.create({ data })
   }
 

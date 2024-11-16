@@ -6,8 +6,10 @@ import { AppController } from './app.controller'
 
 import { AppService } from './app.service'
 
+import { LoggerModule } from './common/utils/logger/logger.module'
+
 @Module({
-  imports: [UserModule],
+  imports: [LoggerModule, UserModule],
   controllers: [AppController],
   providers: [AppService]
 })
