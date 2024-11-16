@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common'
 
-import { MysqlModule } from './providers/database/mysql.module'
-import { PeopleModule } from './models/people/people.module'
+import { UserModule } from './models/user/user.module'
 
 import { AppController } from './app.controller'
+
 import { AppService } from './app.service'
 
 @Module({
-  imports: [MysqlModule, PeopleModule],
+  imports: [UserModule],
   controllers: [AppController],
   providers: [AppService],
 })

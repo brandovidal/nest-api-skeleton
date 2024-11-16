@@ -63,5 +63,5 @@ $ pnpm run test:e2e
 
 ```bash
 ## Modo dev
-$ http://localhost:3000/docs
+$ http://localhost:5000/docs
 ``` -->
