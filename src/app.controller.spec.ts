@@ -15,8 +15,8 @@ describe('AppController', () => {
   })
 
   describe('root', () => {
-    it('should return "Challengue works! 🎉!"', () => {
-      expect(appController.getHello()).toBe('Challengue works! 🎉!')
+    it('should return "Nest API works! 🎉!"', () => {
+      expect(appController.getHello()).toBe('Nest API works! 🎉!')
     })
   })
 })

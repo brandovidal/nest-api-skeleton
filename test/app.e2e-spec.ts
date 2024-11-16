@@ -20,7 +20,7 @@ describe('AppController (e2e)', () => {
     const response = await request(app.getHttpServer()).get('/')
 
     expect(response.status).toBe(200)
-    expect(response.text).toBe('Challengue works! 🎉!')
+    expect(response.text).toBe('Nest API works! 🎉!')
   })
 
   it('/api/people/create (POST)', async () => {
