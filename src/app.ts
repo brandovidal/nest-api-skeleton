@@ -1,5 +1,6 @@
 import { NestFactory, Reflector } from '@nestjs/core'
-import { ValidationPipe } from '@nestjs/common'
+
+import { ZodValidationPipe } from 'nestjs-zod'
 
 // import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
@@ -10,17 +11,11 @@ import { ResponseInterceptor } from './common/serializers/response.serializer'
 export async function App() {
   const app = await NestFactory.create(AppModule)
 
-  app.useGlobalInterceptors(new ResponseInterceptor(app.get(Reflector)))
-
   app.setGlobalPrefix('api')
 
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-    }),
-  )
+  app.useGlobalPipes(new ZodValidationPipe())
+
+  app.useGlobalInterceptors(new ResponseInterceptor(app.get(Reflector)))
 
   // const config = new DocumentBuilder().setTitle('People by Star Wars').setDescription('The Star Wars API people').setVersion('1.0').build()
   // const document = SwaggerModule.createDocument(app, config)

@@ -21,7 +21,7 @@ export class PeopleController {
     private readonly apiService: ApiService,
     private readonly peopleService: PeopleService,
   ) {
-    this.swapiApiUrl = this.configService.get('SWAPI_API_URL')
+    this.swapiApiUrl = this.configService.get('SWAPI_API_URL') ?? 'api'
   }
 
   @Post('bulk')

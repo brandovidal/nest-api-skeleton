@@ -1,12 +1,11 @@
-import { IsString } from 'class-validator'
+import { createZodDto } from 'nestjs-zod'
 
-export class CreateUserDto {
-  @IsString()
-  username: string
+import { object, string } from 'zod'
 
-  @IsString()
-  email: string
+const createSchema = object({
+  username: string({ required_error: 'Username is required' }),
+  email: string(),
+  password: string(),
+})
 
-  @IsString()
-  password: string
-}
+export class CreateUserDto extends createZodDto(createSchema) {}
