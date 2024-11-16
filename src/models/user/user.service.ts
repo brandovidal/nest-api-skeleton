@@ -3,14 +3,14 @@ import { Logger, Injectable } from '@nestjs/common'
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 
-import { PostgresProvider } from '@/providers/database/postgres/provider.service'
+import { PostgresRepository } from '@/providers/database/postgres/repository.service'
 import { UserCreateInput, UserUpdateInput } from './entities/user.entity'
 
 @Injectable()
 export class UserService {
   private readonly logger = new Logger(UserService.name)
 
-  constructor(private provider: PostgresProvider) {}
+  constructor(private repository: PostgresRepository) {}
 
   async create(createDto: CreateUserDto) {
     const data: UserCreateInput = {
@@ -20,15 +20,15 @@ export class UserService {
       name: createDto.name,
       role: createDto.role
     }
-    return await this.provider.user.create({ data })
+    return await this.repository.user.create({ data })
   }
 
   async findAll() {
-    return await this.provider.user.findMany({ include: { profile: true, posts: true } })
+    return await this.repository.user.findMany({ include: { profile: true, posts: true } })
   }
 
   async findOne(id: string) {
-    return await this.provider.user.findUnique({ where: { id }, include: { profile: true, posts: true } })
+    return await this.repository.user.findUnique({ where: { id }, include: { profile: true, posts: true } })
   }
 
   async update(id: string, updateDto: UpdateUserDto) {
@@ -38,10 +38,10 @@ export class UserService {
       name: updateDto.name,
       role: updateDto.role
     }
-    return await this.provider.user.update({ data, where: { id } })
+    return await this.repository.user.update({ data, where: { id } })
   }
 
   async remove(id: string) {
-    return await this.provider.user.delete({ where: { id } })
+    return await this.repository.user.delete({ where: { id } })
   }
 }
