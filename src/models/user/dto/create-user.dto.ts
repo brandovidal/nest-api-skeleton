@@ -14,7 +14,8 @@ const createSchema = object({
     }),
   password: string({ required_error: 'Enter your password.', invalid_type_error: 'Validate your password.' })
     .trim()
-    .min(6, { message: 'Enter 6 characters as minimum.' })
-}).required()
+    .min(6, { message: 'Enter 6 characters as minimum.' }),
+  name: string({ required_error: 'Enter your name.', invalid_type_error: 'Validate your name.' }).trim().nullish()
+})
 
 export class CreateUserDto extends createZodDto(createSchema) {}

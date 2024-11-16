@@ -21,7 +21,12 @@ export class UserService {
   }
 
   findAll() {
-    return this.provider.user.findMany()
+    return this.provider.user.findMany({
+      include: {
+        profile: true,
+        posts: true
+      }
+    })
   }
 
   findOne(id: string) {
