@@ -6,8 +6,28 @@ import { lastValueFrom } from 'rxjs'
 export class ApiHttpService {
   constructor(private readonly httpService: HttpService) {}
 
-  async getData<T>(url: string): Promise<T> {
+  async get<T>(url: string): Promise<T> {
     const response = await lastValueFrom(this.httpService.get(url))
+    return response.data
+  }
+
+  async post<T>(url: string, data: any): Promise<T> {
+    const response = await lastValueFrom(this.httpService.post(url, data))
+    return response.data
+  }
+
+  async put<T>(url: string, data: any): Promise<T> {
+    const response = await lastValueFrom(this.httpService.put(url, data))
+    return response.data
+  }
+
+  async patch<T>(url: string, data: any): Promise<T> {
+    const response = await lastValueFrom(this.httpService.patch(url, data))
+    return response.data
+  }
+
+  async delete<T>(url: string): Promise<T> {
+    const response = await lastValueFrom(this.httpService.delete(url))
     return response.data
   }
 }
