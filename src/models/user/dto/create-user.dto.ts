@@ -1,7 +1,7 @@
 import { createZodDto } from 'nestjs-zod'
 import { Role } from '@prisma/client'
 
-import { object, string, z } from 'zod'
+import { object, string, nativeEnum } from 'zod'
 
 const schema = object({
   username: string({ required_error: 'Enter your username.', invalid_type_error: 'Validate your username.' })
@@ -17,7 +17,7 @@ const schema = object({
     .trim()
     .min(6, { message: 'Enter 6 characters as minimum.' }),
   name: string({ required_error: 'Enter your name.', invalid_type_error: 'Validate your name.' }).trim().nullish(),
-  role: z.nativeEnum(Role).default(Role.USER)
+  role: nativeEnum(Role).default(Role.USER)
 })
 
 export class CreateUserDto extends createZodDto(schema) {}

@@ -44,6 +44,6 @@ export class UserService {
   }
 
   async remove(id: string) {
-    return `This action removes a #${id} user`
+    return await this.provider.user.delete({ where: { id } })
   }
 }
