@@ -6,5 +6,4 @@ Content-Type: application/json
   "email": "test01@email.com",
   "password": "123456",
   "role": "USER",
-  "xyz": true
 }
