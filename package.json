@@ -1,10 +1,8 @@
 {
-  "name": "prueba-tecnica-backend-softek",
+  "name": "nest-api-skeleton",
   "version": "0.0.1",
   "description": "",
-  "author": "",
-  "private": true,
-  "license": "UNLICENSED",
+  "author": "Brando Vidal",
   "scripts": {
     "deps": "pnpm db:stop && pnpm db:init",
     "build": "nest build",
