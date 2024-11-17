@@ -19,6 +19,7 @@ export type Response<T> = {
   data: T
   timestamp: string
   errors?: any
+  stack?: any
 }
 
 @Injectable()
@@ -62,7 +63,8 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
       path,
       message: exception.message,
       errors: errors,
-      timestamp: DateEnhanced.formatIsoString()
+      timestamp: DateEnhanced.formatIsoString(),
+      stack: process.env.NODE_ENV === 'dev' ? exception.stack : undefined
     }
     this.logger.log({ ...result, method, request: { body, query, params } })
 

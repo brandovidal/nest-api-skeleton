@@ -26,6 +26,7 @@ Ver la documentacion en la siguiente ruta [/docs](http://localhost:3000/docs)
 
 > ⚠️ Importante: tener declaradas las siguientes variables de entorno, copiar el archivo `.env.example` en un archivo `.env.dev` y `.env.test`, luego reemplazar los valores.
 
+- `NODE_ENV`: Entorno del servidor.
 - `PORT`: Puerto del servidor.
 - `DATABASE_HOST`: Endpoint de la base de datos.
 - `DATABASE_NAME`: Nombre de la base de datos.

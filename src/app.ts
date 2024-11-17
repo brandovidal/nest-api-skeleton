@@ -28,3 +28,16 @@ export async function App() {
 
   return app
 }
+
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      NODE_ENV: 'dev' | 'qa' | 'prod' | 'test'
+      PORT: string
+      DATABASE_URL: string
+      DATABASE_NAME: string
+      DATABASE_USER: string
+      DATABASE_PASSWORD: string
+    }
+  }
+}
