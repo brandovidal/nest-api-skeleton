@@ -7,61 +7,66 @@ Plantilla para un servidor usando NestJS, Typescript, Test, Swagger
 ## 💫 Instalacion del proyecto
 
 ```bash
-$ pnpm install
+pnpm install
+
+# Paso necesario para crear la Base de Datos con Docker y crear los modelos, interfaces y clases para manipularlos con Prisma ORM
+pnpm run deps
 ```
 
 ## 👩‍💻 Pasos para ejecutar en local (`dev`) el proyecto
 
 ```bash
-# Para instalar la Base de Datos con Docker
-$ pnpm run deps
-
 # Ejecutar el proyecto en modo `dev`
-$ pnpm run dev
+pnpm run dev
 ```
 
-<!-- > ⚠️ Importante: tener declaradas las siguientes variables de entorno, revisar el archivo `.env.example`.
+Ver la documentacion en la siguiente ruta [/docs](http://localhost:3000/docs)
+
+> ⚠️ Importante: tener declaradas las siguientes variables de entorno, copiar el archivo `.env.example` en un archivo `.env.dev` y `.env.test`, luego reemplazar los valores.
 
 - `PORT`: Puerto del servidor.
 - `DATABASE_HOST`: Endpoint de la base de datos.
-- `DATABASE_PORT`: Puerto de la base de datos.
-- `DATABASE_ROOT_PASSWORD`: Contraseña del usuario root de la base de datos.
 - `DATABASE_NAME`: Nombre de la base de datos.
 - `DATABASE_USER`: Nombre del usuario de la base de datos.
-- `DATABASE_PASSWORD`: Contraseña del usuario de la base de datos. -->
+- `DATABASE_PASSWORD`: Contraseña del usuario de la base de datos.
 
 > 🧾 Nota: Se pueden usar los endpoints declarados en la carpeta `requests/`
 
-<!-- Instalar con el plugin de VSCode [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
+Instalar con el plugin de VSCode [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 
-```css
-├── requests/
-|   ├── dev/
-|   ├── people/
-|   |   ├── bulk-create.rest
-|   |   ├── create.rest
-|   |   ├── get-all.rest
-|   ├── app.rest
-└── (...)
-``` -->
+## Comandos utiles
+
+Ejecutar linter
+
+```bash
+pnpm run lint
+
+pnpm run format
+```
+
 
 ## 🐛 Pasos para realizar pruebas del proyecto
+
+Prueba unitarias y e2e
+
+```bash
+pnpm run test
+```
+
+Prueba visulizadas desde una web
+
+```bash
+pnpm run test:ui
+```
 
 Pruebas unitarias
 
 ```bash
-$ pnpm run test
+pnpm run test
 ```
 
 Pruebas e2e
 
 ```bash
-$ pnpm run test:e2e
+pnpm run test:e2e
 ```
-
-<!-- Ver la documentacion en la siguiente ruta:
-
-```bash
-## Modo dev
-$ http://localhost:5000/docs
-``` -->
