@@ -1,8 +1,8 @@
-# 👩‍💻 Nest Api Skeleton
+# 👩🦴 Nest Api Skeleton
 
 ## 📝 Descripción del reto técnico:
 
-Plantilla para un servidor usando NestJS, Typescript, Test, Swagger
+Plantilla para un servidor usando Typescript, NodeJS, Prisma ORM, NestJS, Vitest, Swagger, ESLint, Husky, REST Client
 
 ## 💫 Instalacion del proyecto
 
@@ -34,7 +34,7 @@ Ver la documentacion en la siguiente ruta [/docs](http://localhost:3000/docs)
 
 Instalar con el plugin de VSCode [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 
-## Comandos utiles
+## 🪄 Comandos utiles
 
 Ejecutar linter
 
@@ -47,13 +47,13 @@ pnpm run format
 
 ## 🐛 Pasos para realizar pruebas del proyecto
 
-Prueba unitarias y e2e
+Pruebas unitarias y e2e
 
 ```bash
 pnpm run test
 ```
 
-Prueba visulizadas desde una web
+Pruebas visualizadas desde una web
 
 ```bash
 pnpm run test:ui
