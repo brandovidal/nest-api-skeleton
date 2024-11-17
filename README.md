@@ -1,4 +1,4 @@
-# 👩🦴 Nest Api Skeleton
+# 🦴 Nest Api Skeleton
 
 ## 📝 Descripción del reto técnico:
 
@@ -8,15 +8,17 @@ Plantilla para un servidor usando Typescript, NodeJS, Prisma ORM, NestJS, Vitest
 
 ```bash
 pnpm install
+```
 
-# Paso necesario para crear la Base de Datos con Docker y crear los modelos, interfaces y clases para manipularlos con Prisma ORM
+> 🚀 Paso necesario para crear la Base de Datos con Docker y crear los modelos, interfaces y clases para manipularlos con Prisma ORM
+
+```bash
 pnpm run deps
 ```
 
 ## 👩‍💻 Pasos para ejecutar en local (`dev`) el proyecto
 
 ```bash
-# Ejecutar el proyecto en modo `dev`
 pnpm run dev
 ```
 
@@ -34,18 +36,7 @@ Ver la documentacion en la siguiente ruta [/docs](http://localhost:3000/docs)
 
 Instalar con el plugin de VSCode [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 
-## 🪄 Comandos utiles
-
-Ejecutar linter
-
-```bash
-pnpm run lint
-
-pnpm run format
-```
-
-
-## 🐛 Pasos para realizar pruebas del proyecto
+## 🧪 Pasos para realizar pruebas del proyecto
 
 Pruebas unitarias y e2e
 
@@ -69,4 +60,25 @@ Pruebas e2e
 
 ```bash
 pnpm run test:e2e
+```
+
+## 🪄 Comandos utiles
+
+Ejecutar linter
+
+```bash
+pnpm run lint
+pnpm run format
+```
+
+Compilar el proyecto
+
+```bash
+pnpm run build
+```
+
+Borrar archivos generados en el projecto
+
+```bash
+pnpm run clean
 ```
