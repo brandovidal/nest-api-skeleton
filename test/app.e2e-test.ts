@@ -6,6 +6,8 @@ import request from 'supertest'
 import { AppModule } from '@/app.module'
 import { UserCreateInput } from '@/models/user/entities/user.entity'
 
+import { beforeEach, describe, expect, it } from 'vitest'
+
 describe('AppController (e2e)', () => {
   let app: INestApplication
 

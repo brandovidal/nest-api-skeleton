@@ -7,12 +7,14 @@ import { UserService } from './user.service'
 import { CreateUserDto } from './dto/create-user.dto'
 import { User } from '@prisma/client'
 
+import { vi, beforeEach, describe, expect, it } from 'vitest'
+
 const mockUserService = {
-  create: jest.fn(),
-  findAll: jest.fn(),
-  findOne: jest.fn(),
-  update: jest.fn(),
-  remove: jest.fn()
+  create: vi.fn(),
+  findAll: vi.fn(),
+  findOne: vi.fn(),
+  update: vi.fn(),
+  remove: vi.fn()
 }
 
 describe('UserController', () => {
@@ -41,7 +43,7 @@ describe('UserController', () => {
 
       const user = { ...createUserDto } as User
 
-      jest.spyOn(mockUserService, 'create').mockReturnValue(user)
+      vi.spyOn(mockUserService, 'create').mockReturnValue(user)
 
       // act
       const result = await controller.create(createUserDto)
@@ -61,7 +63,7 @@ describe('UserController', () => {
       } as User
       const users = [user]
 
-      jest.spyOn(mockUserService, 'findAll').mockReturnValue(users)
+      vi.spyOn(mockUserService, 'findAll').mockReturnValue(users)
 
       // act
       const result = await controller.findAll()
