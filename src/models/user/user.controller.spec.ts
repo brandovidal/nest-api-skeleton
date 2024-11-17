@@ -50,5 +50,24 @@ describe('UserController', () => {
       expect(mockUserService.create).toBeCalledWith(createUserDto)
       expect(result).toEqual(user)
     })
+
+    it('should return "User data has been successfully retrieved', async () => {
+      const user = {
+        id: '1',
+        username: 'test',
+        email: 'test@email.com',
+        password: '123456'
+      } as User
+      const users = [user]
+
+      jest.spyOn(mockUserService, 'findAll').mockReturnValue(users)
+
+      // act
+      const result = await controller.findAll()
+
+      // assert
+      expect(mockUserService.findAll).toBeCalled()
+      expect(result).toEqual(users)
+    })
   })
 })
