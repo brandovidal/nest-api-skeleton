@@ -21,7 +21,7 @@
     "db:init": "docker compose up -d",
     "db:migrate": "pnpm dlx prisma migrate dev --name init",
     "db:stop": "docker compose down",
-    "clean": "rm -rf node_modules/ dist/ pnpm-lock.yaml"
+    "clean": "rimraf node_modules/ dist/ pnpm-lock.yaml"
   },
   "dependencies": {
     "@nestjs/axios": "3.1.2",
@@ -30,7 +30,7 @@
     "@nestjs/core": "10.4.8",
     "@nestjs/mapped-types": "2.0.6",
     "@nestjs/platform-express": "10.4.8",
-    "@nestjs/swagger": "8.0.7",
+    "@nestjs/swagger": "7.4.2",
     "@prisma/client": "5.22.0",
     "axios": "1.7.7",
     "dayjs": "1.11.13",
@@ -46,10 +46,10 @@
     "@nestjs/testing": "10.4.8",
     "@types/express": "5.0.0",
     "@types/jest": "29.5.14",
-    "@types/node": "20.17.6",
+    "@types/node": "22.9.0",
     "@types/supertest": "6.0.2",
     "@typescript-eslint/eslint-plugin": "8.14.0",
-    "@typescript-eslint/parser": "8.0.1",
+    "@typescript-eslint/parser": "8.14.0",
     "eslint": "8.57.1",
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-prettier": "5.2.1",
@@ -57,9 +57,10 @@
     "nestjs-zod": "4.2.0",
     "prettier": "3.3.3",
     "prisma": "5.22.0",
+    "rimraf": "6.0.1",
     "supertest": "7.0.0",
-    "ts-jest": "29.1.5",
-    "typescript": "5.1.6",
+    "ts-jest": "29.2.5",
+    "typescript": "5.3.3",
     "zod": "3.23.8"
   }
 }
