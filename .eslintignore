@@ -1,0 +1,12 @@
+node_modules/
+
+**/*.config.ts
+drizzle.config.ts
+**/*.js
+**/*.d.ts
+
+./data/*.json
+
+dist/
+tests/
+public/
