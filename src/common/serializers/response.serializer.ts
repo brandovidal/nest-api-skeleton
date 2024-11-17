@@ -9,7 +9,7 @@ import { catchError, map } from 'rxjs/operators'
 
 import { RESPONSE_MESSAGE_METADATA } from '../decorators/response-message.decorator'
 
-import dayjs from 'dayjs'
+import { DateEnhanced } from '../helpers/date.helper'
 
 export type Response<T> = {
   success: boolean
@@ -61,8 +61,8 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
       status,
       path,
       message: exception.message,
-      timestamp: dayjs(new Date().toISOString()).format('YYYY-MM-DD HH:mm:ss'),
-      errors: errors
+      errors: errors,
+      timestamp: DateEnhanced.formatIsoString()
     }
     this.logger.log({ ...result, method, request: { body, query, params } })
 
@@ -85,7 +85,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
       message: message,
       status,
       data: res,
-      timestamp: dayjs(new Date().toISOString()).format('YYYY-MM-DD HH:mm:ss')
+      timestamp: DateEnhanced.formatIsoString()
     }
     this.logger.log({ ...result, method, request: { body, query, params } })
 
