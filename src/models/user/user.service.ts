@@ -13,8 +13,13 @@ export class UserService {
   private readonly repository = new PostgresRepository()
 
   async create(createDto: CreateUserDto) {
-    const data: UserCreateInput = createDto
-    console.log('🚀 ~ UserService ~ create ~ data:', data)
+    const data: UserCreateInput = {
+      username: createDto.username,
+      email: createDto.email,
+      password: createDto.password,
+      name: createDto.name,
+      role: createDto.role
+    }
     return await this.repository.user.create({ data })
   }
 
