@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 
 import { PassportStrategy } from '@nestjs/passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
@@ -7,6 +7,7 @@ import { AuthService } from './auth.service'
 import { UserService } from '@/models/user/user.service'
 
 import { JWT_SECRET_KEY } from '@/common/constants/jwt.constant'
+import { UnauthorizedException } from '@/common/exceptions/unauthorized.exception'
 
 import { User } from '@/models/user/entities/user.entity'
 
@@ -18,6 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ignoreExpiration: false,
       secretOrKey: JWT_SECRET_KEY
     })
   }
@@ -27,7 +29,6 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     if (!user) {
       throw new UnauthorizedException()
     }
-
     return user
   }
 }

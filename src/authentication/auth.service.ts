@@ -1,11 +1,12 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 
 import * as bcrypt from 'bcrypt'
 
 import { UserService } from '../models/user/user.service'
 
-import { INVALID_CREDENTIALS, USER_NOT_EXISTS } from '@/common/constants/auth.constant'
+import { UnauthorizedException } from '@/common/exceptions/unauthorized.exception'
+import { USER_NOT_EXISTS } from '@/common/constants/auth.constant'
 
 import { Auth, UserAuth } from './entities/auth.entity'
 
@@ -26,7 +27,7 @@ export class AuthService {
 
     const isPasswordValid = await this.passworMatch(password, userFinded.password)
     if (!isPasswordValid) {
-      throw new UnauthorizedException(INVALID_CREDENTIALS)
+      throw new UnauthorizedException()
     }
 
     const accessToken = this.jwtService.sign({ userId: userFinded.id })

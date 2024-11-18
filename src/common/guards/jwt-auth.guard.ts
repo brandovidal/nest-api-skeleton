@@ -1,9 +1,10 @@
-import { ExecutionContext, HttpException, Injectable, UnauthorizedException } from '@nestjs/common'
+import { ExecutionContext, Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { AuthGuard } from '@nestjs/passport'
 
+import { UnauthorizedException } from '../exceptions/unauthorized.exception'
+
 import { JWT_SECRET_KEY } from '../constants/jwt.constant'
-import { INVALID_CREDENTIALS } from '../constants/auth.constant'
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
@@ -13,17 +14,20 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest()
+    const { url: path } = request
+
     const token = this.extractTokenFromHeader(request)
     if (!token) {
-      throw new UnauthorizedException()
+      throw new UnauthorizedException(path)
     }
+
     try {
       const payload = await this.jwtService.verifyAsync(token, {
         secret: JWT_SECRET_KEY
       })
       request['user'] = payload
     } catch {
-      throw new HttpException(INVALID_CREDENTIALS, 401)
+      throw new UnauthorizedException(path)
     }
     return true
   }
