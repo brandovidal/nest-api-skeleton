@@ -1,11 +1,23 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { Role } from '@prisma/client'
 
-import { UserEntity } from '@/models/user/entities/user.entity'
+class UserAuth {
+  @ApiProperty()
+  id: string
+
+  @ApiProperty()
+  username: string
+
+  @ApiProperty()
+  email: string
+
+  @ApiProperty({ enum: Role })
+  role: Role
+}
 
 export class Auth {
   @ApiProperty()
   accessToken: string
 
-  @ApiProperty()
-  user: UserEntity
+  user: UserAuth
 }

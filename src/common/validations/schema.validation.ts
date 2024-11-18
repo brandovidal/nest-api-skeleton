@@ -13,7 +13,7 @@ export const baseSchema = {
     .email({ message: 'Enter a valid email.' }),
   password: string({ required_error: 'Enter your password.', invalid_type_error: 'Validate your password.' })
     .trim()
-    .min(6, { message: 'Enter 6 characters as minimum.' }),
+    .min(5, { message: 'Enter 5 characters as minimum.' }),
   name: string({ required_error: 'Enter your name.', invalid_type_error: 'Validate your name.' }).trim(),
   role: nativeEnum(Role).default(Role.USER)
 }

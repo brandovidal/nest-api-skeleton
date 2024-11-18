@@ -3,6 +3,5 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3OGUxY2E5Zi00NjhiLTQ1MmEtYjhjZi0xNDA5OTc2N2E3MTMiLCJpYXQiOjE3MzE5MTk2ODksImV4cCI6MTczMTkxOTk4OX0.KHRJP3gl2PCtcf_F3n-p8bzwkoE0lirxBTk9iqYA_V8
 
 {
-  "password": "123456789",
-  "name": "Test user 001"
+  "name": "Admin User"
 }

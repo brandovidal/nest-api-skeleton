@@ -9,32 +9,32 @@ const ROUNDS_OF_HASHING = 10
 
 async function main() {
   // create two dummy users
-  const passwordLuis = await bcrypt.hash('password-luis', ROUNDS_OF_HASHING)
-  const passwordSofia = await bcrypt.hash('password-sofia', ROUNDS_OF_HASHING)
+  const passwordAdmin = await bcrypt.hash('admin', ROUNDS_OF_HASHING)
+  const passwordUser = await bcrypt.hash('user', ROUNDS_OF_HASHING)
 
   const user1 = await prisma.user.upsert({
-    where: { username: 'luis' },
+    where: { username: 'admin' },
     update: {
-      password: passwordLuis
+      password: passwordAdmin
     },
     create: {
-      username: 'luis',
-      email: 'luis@email.com',
-      name: 'Luis',
-      password: passwordLuis
+      username: 'admin',
+      email: 'admin@email.com',
+      name: 'Admin',
+      password: passwordAdmin
     }
   })
 
   const user2 = await prisma.user.upsert({
-    where: { username: 'sofia' },
+    where: { username: 'user' },
     update: {
-      password: passwordSofia
+      password: passwordUser
     },
     create: {
-      username: 'sofia',
-      email: 'sofia@email.com',
-      name: 'Sofia',
-      password: passwordSofia
+      username: 'user',
+      email: 'user@email.com',
+      name: 'User',
+      password: passwordUser
     }
   })
 

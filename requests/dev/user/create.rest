@@ -2,8 +2,8 @@ POST http://localhost:5000/api/user/create
 Content-Type: application/json
 
 {
-  "username": "user01",
-  "email": "user01@email.com",
-  "password": "123456",
+  "username": "admin",
+  "email": "admin@email.com",
+  "password": "admin",
   "role": "ADMIN"
 }

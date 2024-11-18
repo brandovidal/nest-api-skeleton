@@ -38,7 +38,7 @@ describe('UserController', () => {
       const createUserDto = {
         username: 'test',
         email: 'test@email.com',
-        password: '123456'
+        password: 'admin'
       } as CreateUserDto
 
       const user = { ...createUserDto } as User
@@ -59,7 +59,7 @@ describe('UserController', () => {
         id: '1',
         username: 'test',
         email: 'test@email.com',
-        password: '123456'
+        password: 'admin'
       } as User
       const users = [user]
 

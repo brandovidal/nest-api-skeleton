@@ -29,6 +29,8 @@ export class AuthService {
 
     const accessToken = this.jwtService.sign({ userId: user.id })
 
+    // const { password: _, ...newUser } = user as UserEntity
+
     return { user, accessToken }
   }
 
