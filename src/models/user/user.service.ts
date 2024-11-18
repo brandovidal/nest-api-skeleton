@@ -5,14 +5,16 @@ import { PostgresRepository } from '@/config/database/postgres/repository.servic
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 
-import { UserCreateInput, UserUpdateInput } from './entities/user.entity'
+import { User, UserCreateInput, UserUpdateInput } from './entities/user.entity'
+
+import { Nullable } from '@/common/helpers/nullable.helper'
 
 @Injectable()
 export class UserService {
   private readonly logger = new Logger(UserService.name)
   private readonly repository = new PostgresRepository()
 
-  async create(createDto: CreateUserDto) {
+  async create(createDto: CreateUserDto): Promise<User> {
     const data: UserCreateInput = {
       username: createDto.username,
       email: createDto.email,
@@ -23,15 +25,15 @@ export class UserService {
     return await this.repository.user.create({ data })
   }
 
-  async findAll() {
+  async findAll(): Promise<Nullable<User[]>> {
     return await this.repository.user.findMany({ include: { profile: true, posts: true } })
   }
 
-  async findOne(id: string) {
+  async findOne(id: string): Promise<Nullable<User>> {
     return await this.repository.user.findUnique({ where: { id }, include: { profile: true, posts: true } })
   }
 
-  async update(id: string, updateDto: UpdateUserDto) {
+  async update(id: string, updateDto: UpdateUserDto): Promise<User> {
     const data: UserUpdateInput = {
       email: updateDto.email,
       password: updateDto.password,
@@ -41,7 +43,7 @@ export class UserService {
     return await this.repository.user.update({ data, where: { id } })
   }
 
-  async remove(id: string) {
+  async remove(id: string): Promise<User> {
     return await this.repository.user.delete({ where: { id } })
   }
 }
