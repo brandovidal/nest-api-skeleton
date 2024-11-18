@@ -3,36 +3,43 @@ import { JwtService } from '@nestjs/jwt'
 
 import * as bcrypt from 'bcrypt'
 
-import { UserService } from '../models/user/user.service'
+import { PostgresRepository } from '@/config/database/postgres/repository.service'
+import { UserService } from '@/models/user/user.service'
 
 import { UserNotFoundException } from '@/common/exceptions/user-not-found.exception'
 import { UnauthorizedException } from '@/common/exceptions/unauthorized.exception'
+import { UserExistsException } from '@/common/exceptions/user-exists.exception'
 
+import { User, UserCreateInput } from '@/models/user/entities/user.entity'
 import { Auth, UserAuth } from './entities/auth.entity'
 
 import { Helper } from '@/common/helpers/global.helper'
 
+export const ROUNDS_OF_HASHING = 10
+
 @Injectable()
 export class AuthService {
+  private readonly repository = new PostgresRepository()
+
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService
   ) {}
 
   async validateUser(email: string, password: string): Promise<Auth> {
-    const userFinded = await this.userService.findByEmail(email)
-    if (!userFinded) {
+    const userExists = await this.userService.findByEmail(email)
+    if (!userExists) {
       throw new UserNotFoundException()
     }
 
-    const isPasswordValid = await this.passworMatch(password, userFinded.password)
+    const isPasswordValid = await this.passworMatch(password, userExists.password)
     if (!isPasswordValid) {
       throw new UnauthorizedException()
     }
 
-    const accessToken = this.jwtService.sign({ userId: userFinded.id })
+    const accessToken = this.jwtService.sign({ userId: userExists.id })
 
-    const user = Helper.pick(userFinded, 'email', 'name', 'role') as UserAuth
+    const user = Helper.pick(userExists, 'email', 'name', 'role') as UserAuth
 
     return { accessToken, user }
   }
@@ -43,5 +50,20 @@ export class AuthService {
 
   async login(email: string, password: string): Promise<Auth> {
     return await this.validateUser(email, password)
+  }
+
+  async register(email: string, password: string): Promise<User> {
+    const userExists = await this.userService.findByEmail(email)
+    if (userExists) {
+      throw new UserExistsException()
+    }
+
+    const hashedPassword = await bcrypt.hash(password, ROUNDS_OF_HASHING)
+
+    const data: UserCreateInput = {
+      email,
+      password: hashedPassword
+    }
+    return await this.repository.user.create({ data })
   }
 }
