@@ -1,4 +1,4 @@
-import { Injectable, NestInterceptor, ExecutionContext, CallHandler, HttpException, HttpStatus, Logger } from '@nestjs/common'
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler, HttpException, HttpStatus, Logger, UnauthorizedException } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { ZodSerializationException } from 'nestjs-zod'
 
@@ -51,6 +51,8 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
       const prismaError = exception as unknown as PrismaClientKnownRequestError
       errors = { code: prismaError.code, message: prismaError.meta }
     } else if (exception instanceof HttpException) {
+      errors = exception.message
+    } else if (exception instanceof UnauthorizedException) {
       errors = exception.message
     } else {
       this.logger.error(exception.stack)

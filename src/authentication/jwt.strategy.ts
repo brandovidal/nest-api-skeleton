@@ -6,7 +6,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt'
 import { AuthService } from './auth.service'
 import { UserService } from '@/models/user/user.service'
 
-import { JWT_SECRET_KEY } from './auth.module'
+import { JWT_SECRET_KEY } from '@/common/constants/jwt.constant'
 
 import { User } from '@/models/user/entities/user.entity'
 
