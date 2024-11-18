@@ -5,23 +5,23 @@ import { ResponseMessage } from '@/common/decorators/response-message.decorator'
 
 import { AuthService } from './auth.service'
 
-import { LoginDto } from './dto/login.dto'
-import { SignUpDto } from './dto/register.dto'
+import { SignInDto } from './dto/signin.dto'
+import { SignUpDto } from './dto/signup.dto'
 
 @Controller('auth')
 @ApiTags('Auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('login')
+  @Post('signin')
   @ResponseMessage('Login successfully')
-  async login(@Body() { username, password }: LoginDto) {
-    return await this.authService.login(username, password)
+  async signIn(@Body() { username, password }: SignInDto) {
+    return await this.authService.signIn(username, password)
   }
 
-  @Post('register')
+  @Post('signup')
   @ResponseMessage('Register successfully')
-  async register(@Body() { username, password }: SignUpDto) {
-    return await this.authService.register(username, password)
+  async signUp(@Body() { username, password }: SignUpDto) {
+    return await this.authService.signUp(username, password)
   }
 }

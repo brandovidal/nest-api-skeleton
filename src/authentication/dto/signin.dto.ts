@@ -7,4 +7,4 @@ const schema = object({
   password: baseSchema.password
 })
 
-export class LoginDto extends createZodDto(schema) {}
+export class SignInDto extends createZodDto(schema) {}

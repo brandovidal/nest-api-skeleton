@@ -48,11 +48,11 @@ export class AuthService {
     return await bcrypt.compare(password, hash)
   }
 
-  async login(username: string, password: string): Promise<Auth> {
+  async signIn(username: string, password: string): Promise<Auth> {
     return await this.validateUser(username, password)
   }
 
-  async register(username: string, password: string): Promise<User> {
+  async signUp(username: string, password: string): Promise<User> {
     const userExists = await this.userService.findByUsername(username)
     if (userExists) {
       throw new UserExistsException()
