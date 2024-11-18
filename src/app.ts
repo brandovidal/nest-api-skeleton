@@ -22,6 +22,8 @@ export async function App() {
   // generate schemas with Zod in Swagger
   patchNestJsSwagger()
 
+  app.enableShutdownHooks()
+
   const config = new DocumentBuilder()
     .setTitle(DOCUMENT_TITLE)
     .setDescription(DOCUMENT_DESCRIPTION)
