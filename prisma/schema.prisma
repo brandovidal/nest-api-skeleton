@@ -15,9 +15,9 @@ datasource db {
 
 model User {
   id       String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  username String?   @unique
-  email    String
+  username String   @unique
   password String
+  email    String?
   name     String?
   role     Role     @default(USER)
   posts    Post[]

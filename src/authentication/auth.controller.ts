@@ -15,13 +15,13 @@ export class AuthController {
 
   @Post('login')
   @ResponseMessage('Login successfully')
-  async login(@Body() { email, password }: LoginDto) {
-    return await this.authService.login(email, password)
+  async login(@Body() { username, password }: LoginDto) {
+    return await this.authService.login(username, password)
   }
 
   @Post('register')
   @ResponseMessage('Register successfully')
-  async register(@Body() { email, password }: SignUpDto) {
-    return await this.authService.register(email, password)
+  async register(@Body() { username, password }: SignUpDto) {
+    return await this.authService.register(username, password)
   }
 }

@@ -3,9 +3,9 @@ import { createZodDto } from 'nestjs-zod'
 import { object } from 'zod'
 
 const schema = object({
-  username: baseSchema.username.optional(),
-  email: baseSchema.email,
+  username: baseSchema.username,
   password: baseSchema.password,
+  email: baseSchema.email.optional(),
   name: baseSchema.name.nullish(),
   role: baseSchema.role.optional()
 })

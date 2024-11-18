@@ -26,8 +26,8 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  async validateUser(email: string, password: string): Promise<Auth> {
-    const userExists = await this.userService.findByEmail(email)
+  async validateUser(username: string, password: string): Promise<Auth> {
+    const userExists = await this.userService.findByUsername(username)
     if (!userExists) {
       throw new UserNotFoundException()
     }
@@ -39,7 +39,7 @@ export class AuthService {
 
     const accessToken = this.jwtService.sign({ userId: userExists.id })
 
-    const user = Helper.pick(userExists, 'email', 'name', 'role') as UserAuth
+    const user = Helper.pick(userExists, 'username', 'name', 'role') as UserAuth
 
     return { accessToken, user }
   }
@@ -48,12 +48,12 @@ export class AuthService {
     return await bcrypt.compare(password, hash)
   }
 
-  async login(email: string, password: string): Promise<Auth> {
-    return await this.validateUser(email, password)
+  async login(username: string, password: string): Promise<Auth> {
+    return await this.validateUser(username, password)
   }
 
-  async register(email: string, password: string): Promise<User> {
-    const userExists = await this.userService.findByEmail(email)
+  async register(username: string, password: string): Promise<User> {
+    const userExists = await this.userService.findByUsername(username)
     if (userExists) {
       throw new UserExistsException()
     }
@@ -61,7 +61,7 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(password, ROUNDS_OF_HASHING)
 
     const data: UserCreateInput = {
-      email,
+      username,
       password: hashedPassword
     }
     return await this.repository.user.create({ data })
