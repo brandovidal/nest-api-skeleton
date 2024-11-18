@@ -26,7 +26,6 @@ export class UserController {
   }
 
   @Get('all')
-  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ type: UserEntity, isArray: true })
   @ResponseMessage('All users have been successfully retrieved')
   async findAll() {
@@ -41,6 +40,7 @@ export class UserController {
   }
 
   @Put(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ type: UserEntity })
   @ResponseMessage('User has been successfully updated')
   async update(@Param('id') id: string, @Body() updateDto: UpdateUserDto) {
