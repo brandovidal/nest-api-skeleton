@@ -6,7 +6,7 @@ const UNAUTHORIZED_ERROR = 'Unauthorized'
 
 export class UnauthorizedException extends NestUnauthorizedException {
   constructor(path?: string) {
-    const result = {
+    super({
       success: false,
       status: HttpStatus.UNAUTHORIZED,
       path,
@@ -14,8 +14,6 @@ export class UnauthorizedException extends NestUnauthorizedException {
       errors: UNAUTHORIZED_ERROR,
       timestamp: DateEnhanced.formatIsoString(),
       stack: undefined
-    }
-
-    super(result)
+    })
   }
 }
