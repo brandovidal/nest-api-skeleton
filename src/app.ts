@@ -22,7 +22,12 @@ export async function App() {
   // generate schemas with Zod in Swagger
   patchNestJsSwagger()
 
-  const config = new DocumentBuilder().setTitle(DOCUMENT_TITLE).setDescription(DOCUMENT_DESCRIPTION).setVersion(DOCUMENT_VERSION).build()
+  const config = new DocumentBuilder()
+    .setTitle(DOCUMENT_TITLE)
+    .setDescription(DOCUMENT_DESCRIPTION)
+    .setVersion(DOCUMENT_VERSION)
+    .addBearerAuth()
+    .build()
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('docs', app, document)
 

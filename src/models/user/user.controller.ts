@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Put, Param, Delete, Logger, UseGuards } from '@nestjs/common'
 
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { JwtAuthGuard } from '@/common/guards/jwt-auth.guard'
 import { ResponseMessage } from '@/common/decorators/response-message.decorator'
 
@@ -41,6 +41,7 @@ export class UserController {
 
   @Put(':id')
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: UserEntity })
   @ResponseMessage('User has been successfully updated')
   async update(@Param('id') id: string, @Body() updateDto: UpdateUserDto) {

@@ -1,5 +1,6 @@
-PUT http://localhost:5000/api/user/2da08e46-1304-4511-b038-0d70ba4a66b2
+PUT http://localhost:5000/api/user/78e1ca9f-468b-452a-b8cf-14099767a713
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3OGUxY2E5Zi00NjhiLTQ1MmEtYjhjZi0xNDA5OTc2N2E3MTMiLCJpYXQiOjE3MzE5MTk2ODksImV4cCI6MTczMTkxOTk4OX0.KHRJP3gl2PCtcf_F3n-p8bzwkoE0lirxBTk9iqYA_V8
 
 {
   "password": "123456789",

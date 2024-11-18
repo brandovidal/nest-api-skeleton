@@ -22,7 +22,8 @@ export class AuthService {
       throw new NotFoundException(USER_NOT_EXISTS)
     }
 
-    const isPasswordValid = await this.passworMatch(password, user.password)
+    const isPasswordValid = user.password === password
+    // const isPasswordValid = await this.passworMatch(password, user.password)
     if (!isPasswordValid) {
       throw new UnauthorizedException(INVALID_CREDENTIALS)
     }

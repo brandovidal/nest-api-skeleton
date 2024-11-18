@@ -21,7 +21,7 @@ export class UserEntity implements User {
   @ApiProperty()
   name: string | null
 
-  @ApiProperty()
+  @ApiProperty({ enum: Role })
   role: Role
 
   @ApiProperty()
