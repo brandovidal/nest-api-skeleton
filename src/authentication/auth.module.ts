@@ -11,7 +11,7 @@ import { AuthService } from './auth.service'
 import { JwtStrategy } from './jwt.strategy'
 
 @Module({
-  imports: [AuthModule, UserModule, PassportModule, JwtModule.register({ global: true, secret: JWT_SECRET_KEY, signOptions: { expiresIn: '5m' } })],
+  imports: [AuthModule, UserModule, PassportModule, JwtModule.register({ global: true, secret: JWT_SECRET_KEY, signOptions: { expiresIn: '1h' } })],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy]
 })
