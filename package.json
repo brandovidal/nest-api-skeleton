@@ -74,6 +74,8 @@
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-prettier": "5.2.1",
     "husky": "9.1.6",
+    "just-omit": "2.2.0",
+    "just-pick": "4.2.0",
     "prettier": "3.3.3",
     "prisma": "5.22.0",
     "rimraf": "6.0.1",

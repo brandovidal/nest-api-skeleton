@@ -7,7 +7,9 @@ import { UserService } from '../models/user/user.service'
 
 import { INVALID_CREDENTIALS, USER_NOT_EXISTS } from '@/common/constants/auth.constant'
 
-import { Auth } from './entities/auth.entity'
+import { Auth, UserAuth } from './entities/auth.entity'
+
+import { Helper } from '@/common/helpers/global.helper'
 
 @Injectable()
 export class AuthService {
@@ -17,21 +19,21 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, password: string): Promise<Auth> {
-    const user = await this.userService.findByEmail(email)
-    if (!user) {
+    const userFinded = await this.userService.findByEmail(email)
+    if (!userFinded) {
       throw new NotFoundException(USER_NOT_EXISTS)
     }
 
-    const isPasswordValid = await this.passworMatch(password, user.password)
+    const isPasswordValid = await this.passworMatch(password, userFinded.password)
     if (!isPasswordValid) {
       throw new UnauthorizedException(INVALID_CREDENTIALS)
     }
 
-    const accessToken = this.jwtService.sign({ userId: user.id })
+    const accessToken = this.jwtService.sign({ userId: userFinded.id })
 
-    // const { password: _, ...newUser } = user as UserEntity
+    const user = Helper.pick(userFinded, 'email', 'name', 'role') as UserAuth
 
-    return { user, accessToken }
+    return { accessToken, user }
   }
 
   async passworMatch(password: string, hash: string): Promise<boolean> {
