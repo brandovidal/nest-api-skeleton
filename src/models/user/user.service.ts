@@ -4,10 +4,9 @@ import { PostgresRepository } from '@/config/database/postgres/repository.servic
 
 import * as bcrypt from 'bcrypt'
 
-import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 
-import { User, UserCreateInput, UserUpdateInput } from './entities/user.entity'
+import { User, UserUpdateInput } from './entities/user.entity'
 
 import { Nullable } from '@/common/helpers/nullable.helper'
 
@@ -17,16 +16,6 @@ export const ROUNDS_OF_HASHING = 10
 export class UserService {
   private readonly logger = new Logger(UserService.name)
   private readonly repository = new PostgresRepository()
-
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const hashedPassword = await bcrypt.hash(createUserDto.password, ROUNDS_OF_HASHING)
-
-    const data: UserCreateInput = {
-      ...createUserDto,
-      password: hashedPassword
-    }
-    return await this.repository.user.create({ data })
-  }
 
   async findAll(): Promise<Nullable<User[]>> {
     return await this.repository.user.findMany({ include: { profile: true, posts: true } })

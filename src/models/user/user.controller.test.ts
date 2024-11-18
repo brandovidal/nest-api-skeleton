@@ -4,13 +4,13 @@ import { UserController } from './user.controller'
 
 import { UserService } from './user.service'
 
-import { CreateUserDto } from './dto/create-user.dto'
+import { UpdateUserDto } from './dto/update-user.dto'
+
 import { User } from '@prisma/client'
 
 import { vi, beforeEach, describe, expect, it } from 'vitest'
 
 const mockUserService = {
-  create: vi.fn(),
   findAll: vi.fn(),
   findOne: vi.fn(),
   update: vi.fn(),
@@ -34,23 +34,22 @@ describe('UserController', () => {
       expect(controller).toBeDefined()
     })
 
-    it('should return "the user has been successfully created"', async () => {
-      const createUserDto = {
-        username: 'test',
-        email: 'test@email.com',
-        password: 'admin'
-      } as CreateUserDto
+    it('should return "the user has been successfully updated"', async () => {
+      const userId = '1'
+      const updateUserDto = {
+        name: 'Test User'
+      } as UpdateUserDto
 
-      const user = { ...createUserDto } as User
+      const user = { ...updateUserDto } as User
 
-      vi.spyOn(mockUserService, 'create').mockReturnValue(user)
+      vi.spyOn(mockUserService, 'update').mockReturnValue(user)
 
       // act
-      const result = await controller.create(createUserDto)
+      const result = await controller.update(userId, updateUserDto)
 
       // assert
-      expect(mockUserService.create).toBeCalled()
-      expect(mockUserService.create).toBeCalledWith(createUserDto)
+      expect(mockUserService.update).toBeCalled()
+      expect(mockUserService.update).toBeCalledWith(userId, updateUserDto)
       expect(result).toEqual(user)
     })
 

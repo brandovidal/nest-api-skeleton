@@ -9,6 +9,7 @@ import { SignInDto } from './dto/sign-in.dto'
 import { SignUpDto } from './dto/sign-up.dto'
 
 import { UserEntity } from '@/models/user/entities/user.entity'
+import { Auth } from './entities/auth.entity'
 
 @Controller('auth')
 @ApiTags('Auth')
@@ -16,6 +17,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('sign-in')
+  @ApiCreatedResponse({ type: Auth })
   @ResponseMessage('Login successfully')
   async signIn(@Body() { username, password }: SignInDto) {
     return await this.authService.signIn(username, password)

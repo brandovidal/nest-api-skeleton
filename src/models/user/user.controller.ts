@@ -1,12 +1,11 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, Logger, UseGuards } from '@nestjs/common'
+import { Controller, Get, Body, Put, Param, Delete, Logger, UseGuards } from '@nestjs/common'
 
-import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { JwtAuthGuard } from '@/common/guards/jwt-auth.guard'
 import { ResponseMessage } from '@/common/decorators/response-message.decorator'
 
 import { UserService } from './user.service'
 
-import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 
 import { UserEntity } from './entities/user.entity'
@@ -18,15 +17,10 @@ export class UserController {
 
   constructor(private readonly userService: UserService) {}
 
-  @Post('create')
-  @ApiCreatedResponse({ type: UserEntity })
-  @ResponseMessage('User has been successfully created')
-  async create(@Body() createUserDto: CreateUserDto) {
-    return await this.userService.create(createUserDto)
-  }
-
   @Get('all')
   @ApiOkResponse({ type: UserEntity, isArray: true })
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ResponseMessage('All users have been successfully retrieved')
   async findAll() {
     return await this.userService.findAll()
@@ -34,6 +28,8 @@ export class UserController {
 
   @Get(':id')
   @ApiOkResponse({ type: UserEntity })
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ResponseMessage('User has been successfully retrieved')
   async findOne(@Param('id') id: string) {
     return await this.userService.findOne(id)
@@ -49,6 +45,8 @@ export class UserController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: UserEntity })
   @ResponseMessage('User has been successfully deleted')
   async remove(@Param('id') id: string) {

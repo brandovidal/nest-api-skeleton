@@ -65,7 +65,7 @@ describe('AppController (e2e)', () => {
       name: 'Test User'
     }
     // send authorization header
-    const response = await request(app.getHttpServer()).put(`/user/${userId}`).set('authorization', `Bearer ${accessToken}`).send(updatedUser)
+    const response = await request(app.getHttpServer()).put(`/user/${userId}`).send(updatedUser).set('authorization', `Bearer ${accessToken}`)
 
     const { username } = response.body
     console.log('🚀 ~ it ~ username:', username)
@@ -75,14 +75,14 @@ describe('AppController (e2e)', () => {
   })
 
   it('Should return all users (GET)', async () => {
-    const response = await request(app.getHttpServer()).get('/user/all')
+    const response = await request(app.getHttpServer()).get('/user/all').set('authorization', `Bearer ${accessToken}`)
 
     expect(response.status).toBe(200)
     expect(response.body.length).toBeGreaterThanOrEqual(0)
   })
 
   it('Should delete a user (DELETE)', async () => {
-    const response = await request(app.getHttpServer()).delete(`/user/${userId}`)
+    const response = await request(app.getHttpServer()).delete(`/user/${userId}`).set('authorization', `Bearer ${accessToken}`)
 
     expect(response.status).toBe(200)
   })
