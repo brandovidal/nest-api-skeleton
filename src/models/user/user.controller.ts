@@ -21,8 +21,8 @@ export class UserController {
   @Post('create')
   @ApiCreatedResponse({ type: UserEntity })
   @ResponseMessage('User has been successfully created')
-  async create(@Body() createDto: CreateUserDto) {
-    return await this.userService.create(createDto)
+  async create(@Body() createUserDto: CreateUserDto) {
+    return await this.userService.create(createUserDto)
   }
 
   @Get('all')
@@ -44,8 +44,8 @@ export class UserController {
   @ApiBearerAuth()
   @ApiOkResponse({ type: UserEntity })
   @ResponseMessage('User has been successfully updated')
-  async update(@Param('id') id: string, @Body() updateDto: UpdateUserDto) {
-    return await this.userService.update(id, updateDto)
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return await this.userService.update(id, updateUserDto)
   }
 
   @Delete(':id')

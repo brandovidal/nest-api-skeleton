@@ -23,6 +23,9 @@
     "db:migrate": "pnpm run db:migrate:dev && pnpm run db:migrate:test",
     "db:migrate:dev": "dotenv -e .env.dev -- pnpm dlx prisma migrate dev --name dev",
     "db:migrate:test": "dotenv -e .env.test -- pnpm dlx prisma migrate dev --name test",
+    "db:seed": "pnpm run db:seed:dev && pnpm run db:seed:test",
+    "db:seed:dev": "dotenv -e .env.dev -- pnpm dlx prisma db seed",
+    "db:seed:test": "dotenv -e .env.test -- pnpm dlx prisma db seed",
     "db:stop": "docker compose down",
     "clean": "rimraf node_modules/ dist/ coverage/ pnpm-lock.yaml",
     "prepare": "husky"
@@ -75,9 +78,13 @@
     "prisma": "5.22.0",
     "rimraf": "6.0.1",
     "supertest": "7.0.0",
+    "ts-node": "10.9.2",
     "typescript": "5.4.5",
     "unplugin-swc": "1.5.1",
     "vite-tsconfig-paths": "5.1.2",
     "vitest": "2.1.5"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   }
 }

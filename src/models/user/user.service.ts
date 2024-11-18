@@ -2,6 +2,8 @@ import { Logger, Injectable } from '@nestjs/common'
 
 import { PostgresRepository } from '@/config/database/postgres/repository.service'
 
+import * as bcrypt from 'bcrypt'
+
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 
@@ -9,18 +11,19 @@ import { User, UserCreateInput, UserUpdateInput } from './entities/user.entity'
 
 import { Nullable } from '@/common/helpers/nullable.helper'
 
+export const ROUNDS_OF_HASHING = 10
+
 @Injectable()
 export class UserService {
   private readonly logger = new Logger(UserService.name)
   private readonly repository = new PostgresRepository()
 
-  async create(createDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const hashedPassword = await bcrypt.hash(createUserDto.password, ROUNDS_OF_HASHING)
+
     const data: UserCreateInput = {
-      username: createDto.username,
-      email: createDto.email,
-      password: createDto.password,
-      name: createDto.name,
-      role: createDto.role
+      ...createUserDto,
+      password: hashedPassword
     }
     return await this.repository.user.create({ data })
   }
@@ -37,13 +40,13 @@ export class UserService {
     return await this.repository.user.findFirst({ where: { email } })
   }
 
-  async update(id: string, updateDto: UpdateUserDto): Promise<User> {
-    const data: UserUpdateInput = {
-      email: updateDto.email,
-      password: updateDto.password,
-      name: updateDto.name,
-      role: updateDto.role
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    const data: UserUpdateInput = { ...updateUserDto }
+
+    if (updateUserDto.password) {
+      data.password = await bcrypt.hash(updateUserDto.password, ROUNDS_OF_HASHING)
     }
+
     return await this.repository.user.update({ data, where: { id } })
   }
 
