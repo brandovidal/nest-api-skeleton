@@ -11,6 +11,7 @@ import { SignUpDto } from './dto/sign-up.dto'
 import { UserEntity } from '@/models/user/entities/user.entity'
 import { Auth } from './entities/auth.entity'
 
+// TODO: create unit test
 @Controller('auth')
 @ApiTags('Auth')
 export class AuthController {
