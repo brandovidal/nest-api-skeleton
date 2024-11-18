@@ -39,7 +39,7 @@ export class AuthService {
 
     const accessToken = this.jwtService.sign({ userId: userExists.id })
 
-    const user = Helper.pick(userExists, 'username', 'name', 'role') as UserAuth
+    const user = Helper.pick(userExists, 'id', 'username', 'name', 'role') as UserAuth
 
     return { accessToken, user }
   }

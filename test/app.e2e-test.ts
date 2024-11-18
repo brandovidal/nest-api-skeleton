@@ -4,7 +4,7 @@ import { INestApplication } from '@nestjs/common'
 import request from 'supertest'
 
 import { AppModule } from '@/app.module'
-import { UserCreateInput } from '@/models/user/entities/user.entity'
+import { UserCreateInput, UserUpdateInput } from '@/models/user/entities/user.entity'
 
 import { beforeEach, describe, expect, it } from 'vitest'
 
@@ -27,19 +27,51 @@ describe('AppController (e2e)', () => {
     expect(response.text).toBe('Nest API works! 🎉!')
   })
 
+  let accessToken = ''
+
+  const admin: UserCreateInput = {
+    username: 'admin',
+    password: 'admin'
+  }
+
+  it('Should sign in (POST)', async () => {
+    const response = await request(app.getHttpServer()).post('/auth/sign-in').send(admin)
+
+    const { user: _user, accessToken: _accessToken } = response.body
+
+    expect(response.status).toBe(201)
+    expect(_user['username']).toBe(admin.username)
+    accessToken = _accessToken
+  })
+
   let userId = ''
   const user: UserCreateInput = {
     username: 'test',
-    email: 'test@email.com',
     password: 'test'
   }
 
-  it('Should create a new user (POST)', async () => {
-    const response = await request(app.getHttpServer()).post('/user/create').send(user)
+  it('Should sign up (POST)', async () => {
+    const response = await request(app.getHttpServer()).post('/auth/sign-up').send(user)
+
+    const { id, username } = response.body
 
     expect(response.status).toBe(201)
-    expect(response.body['username']).toBe(user.username)
-    userId = response.body['id']
+    expect(username).toBe(user.username)
+    userId = id
+  })
+
+  it('Should create a new user (PUT)', async () => {
+    const updatedUser: UserUpdateInput = {
+      name: 'Test User'
+    }
+    // send authorization header
+    const response = await request(app.getHttpServer()).put(`/user/${userId}`).set('authorization', `Bearer ${accessToken}`).send(updatedUser)
+
+    const { username } = response.body
+    console.log('🚀 ~ it ~ username:', username)
+
+    expect(response.status).toBe(200)
+    expect(username).toBe(user.username)
   })
 
   it('Should return all users (GET)', async () => {

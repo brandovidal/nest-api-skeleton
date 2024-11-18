@@ -1,25 +1,28 @@
 import { Body, Controller, Post } from '@nestjs/common'
 
-import { ApiTags } from '@nestjs/swagger'
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger'
 import { ResponseMessage } from '@/common/decorators/response-message.decorator'
 
 import { AuthService } from './auth.service'
 
-import { SignInDto } from './dto/signin.dto'
-import { SignUpDto } from './dto/signup.dto'
+import { SignInDto } from './dto/sign-in.dto'
+import { SignUpDto } from './dto/sign-up.dto'
+
+import { UserEntity } from '@/models/user/entities/user.entity'
 
 @Controller('auth')
 @ApiTags('Auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('signin')
+  @Post('sign-in')
   @ResponseMessage('Login successfully')
   async signIn(@Body() { username, password }: SignInDto) {
     return await this.authService.signIn(username, password)
   }
 
-  @Post('signup')
+  @Post('sign-up')
+  @ApiCreatedResponse({ type: UserEntity })
   @ResponseMessage('Register successfully')
   async signUp(@Body() { username, password }: SignUpDto) {
     return await this.authService.signUp(username, password)

@@ -1,9 +1,0 @@
-POST http://localhost:5000/api/user/create
-Content-Type: application/json
-
-{
-  "username": "admin",
-  "email": "admin@email.com",
-  "password": "admin",
-  "role": "ADMIN"
-}
