@@ -33,6 +33,10 @@ export class UserService {
     return await this.repository.user.findUnique({ where: { id }, include: { profile: true, posts: true } })
   }
 
+  async findByEmail(email: string): Promise<Nullable<User>> {
+    return await this.repository.user.findFirst({ where: { email } })
+  }
+
   async update(id: string, updateDto: UpdateUserDto): Promise<User> {
     const data: UserUpdateInput = {
       email: updateDto.email,
