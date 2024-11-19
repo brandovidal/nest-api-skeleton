@@ -34,9 +34,9 @@ Ver la documentacion en la siguiente ruta [/docs](http://localhost:3000/docs)
 - `DATABASE_PASSWORD`: Contraseña del usuario de la base de datos.
 - `JWT_SECRET_KEY`: Clave secreta para JWT.
 
-- `APP_TOKEN`: Clave token para llamadas endpoint en local (opcional).
-
 > 🧾 Nota: Se pueden usar los endpoints declarados en la carpeta `requests/`
+
+- `APP_TOKEN`: Clave token para llamadas endpoint en local (solo agregar en .env).
 
 Instalar con el plugin de VSCode [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 

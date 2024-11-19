@@ -1,6 +1,7 @@
-import { Body, Controller, Post } from '@nestjs/common'
+import { Body, Controller, Post, UseGuards } from '@nestjs/common'
 
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiCreatedResponse, ApiTags } from '@nestjs/swagger'
+import { JwtAuthGuard } from '@/common/guards/jwt-auth.guard'
 import { ResponseMessage } from '@/common/decorators/response-message.decorator'
 
 import { AuthService } from './auth.service'
@@ -25,6 +26,8 @@ export class AuthController {
   }
 
   @Post('sign-up')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiCreatedResponse({ type: UserEntity })
   @ResponseMessage('Register successfully')
   async signUp(@Body() { username, password }: SignUpDto) {
