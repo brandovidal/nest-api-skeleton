@@ -1,6 +1,6 @@
 PUT http://localhost:5000/api/user/106f8594-fb99-46cf-999e-98a4dbd8e0e7
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDZmODU5NC1mYjk5LTQ2Y2YtOTk5ZS05OGE0ZGJkOGUwZTciLCJpYXQiOjE3MzE5NTc2MjUsImV4cCI6MTczMTk1NzkyNX0.GWq3TezWTTYEmGUR0FktbFfVK-gIEpgoVlj02mTN3Z8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiYzdmYzZjZS1iMzkzLTQ1ODgtYTI3Yy0zYzU4ZDYxYThlMjQiLCJpYXQiOjE3MzE5Nzc5MzgsImV4cCI6MTczMTk4MTUzOH0.DNDrN34jsG4ApBVkjYqVkk_UbV82Li5tp5FDv1BhamU
 
 {
   "name": "Admin User"

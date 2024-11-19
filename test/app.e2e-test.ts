@@ -34,7 +34,7 @@ describe('AppController (e2e)', () => {
     password: 'admin'
   }
 
-  it('Should sign in (POST)', async () => {
+  it('Should sign in an admin user (POST)', async () => {
     const response = await request(app.getHttpServer()).post('/auth/sign-in').send(admin)
 
     const { user: _user, accessToken: _accessToken } = response.body
@@ -50,10 +50,11 @@ describe('AppController (e2e)', () => {
     password: 'test'
   }
 
-  it('Should sign up (POST)', async () => {
+  it('Should sign up a new user (POST)', async () => {
     const response = await request(app.getHttpServer()).post('/auth/sign-up').send(user)
 
     const { id, username } = response.body
+    console.log('🚀 ~ it ~ username:', username)
 
     expect(response.status).toBe(201)
     expect(username).toBe(user.username)
@@ -64,11 +65,14 @@ describe('AppController (e2e)', () => {
     const updatedUser: UserUpdateInput = {
       name: 'Test User'
     }
-    // send authorization header
-    const response = await request(app.getHttpServer()).put(`/user/${userId}`).send(updatedUser).set('authorization', `Bearer ${accessToken}`)
+
+    console.log({ accessToken, userId, updatedUser })
+    const response = await request(app.getHttpServer()).put(`/user/${userId}`).set('authorization', `Bearer ${accessToken}`).send(updatedUser)
+
+    const { status } = response
+    console.log({ status })
 
     const { username } = response.body
-    console.log('🚀 ~ it ~ username:', username)
 
     expect(response.status).toBe(200)
     expect(username).toBe(user.username)

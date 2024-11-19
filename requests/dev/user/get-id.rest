@@ -1,2 +1,3 @@
 GET http://localhost:5000/api/user/b8d85643-fa86-4cb7-8f12-7d64a1c46641
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiYzdmYzZjZS1iMzkzLTQ1ODgtYTI3Yy0zYzU4ZDYxYThlMjQiLCJpYXQiOjE3MzE5Nzc5MzgsImV4cCI6MTczMTk4MTUzOH0.DNDrN34jsG4ApBVkjYqVkk_UbV82Li5tp5FDv1BhamU
