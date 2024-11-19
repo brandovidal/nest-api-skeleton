@@ -32,6 +32,9 @@ Ver la documentacion en la siguiente ruta [/docs](http://localhost:3000/docs)
 - `DATABASE_NAME`: Nombre de la base de datos.
 - `DATABASE_USER`: Nombre del usuario de la base de datos.
 - `DATABASE_PASSWORD`: Contraseña del usuario de la base de datos.
+- `JWT_SECRET_KEY`: Clave secreta para JWT.
+
+- `APP_TOKEN`: Clave token para llamadas endpoint en local (opcional).
 
 > 🧾 Nota: Se pueden usar los endpoints declarados en la carpeta `requests/`
 

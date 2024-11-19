@@ -1,5 +1,6 @@
 POST http://localhost:5000/api/auth/sign-up
 Content-Type: application/json
+Authorization: Bearer {{$dotenv APP_TOKEN}}
 
 {
   "username": "admin01",

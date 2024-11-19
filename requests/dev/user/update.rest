@@ -1,6 +1,6 @@
-PUT http://localhost:5000/api/user/106f8594-fb99-46cf-999e-98a4dbd8e0e7
+PUT http://localhost:5000/api/user/bc7fc6ce-b393-4588-a27c-3c58d61a8e24
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiYzdmYzZjZS1iMzkzLTQ1ODgtYTI3Yy0zYzU4ZDYxYThlMjQiLCJpYXQiOjE3MzE5Nzc5MzgsImV4cCI6MTczMTk4MTUzOH0.DNDrN34jsG4ApBVkjYqVkk_UbV82Li5tp5FDv1BhamU
+Authorization: Bearer {{$dotenv APP_TOKEN}}
 
 {
   "name": "Admin User"
