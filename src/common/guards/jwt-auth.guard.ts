@@ -16,14 +16,12 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     const { url: path } = request
 
     const token = this.extractTokenFromHeader(request)
-    console.log('🚀 ~ JwtAuthGuard ~ canActivate ~ token:', token)
     if (!token) {
       throw new UnauthorizedException(path)
     }
 
     try {
       const secretKey = process.env.JWT_SECRET_KEY
-      console.log('🚀 ~ JwtAuthGuard ~ canActivate ~ secretKey:', secretKey)
       const payload = await this.jwtService.verifyAsync(token, {
         secret: secretKey
       })

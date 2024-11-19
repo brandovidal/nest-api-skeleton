@@ -54,7 +54,6 @@ describe('AppController (e2e)', () => {
     const response = await request(app.getHttpServer()).post('/auth/sign-up').send(user)
 
     const { id, username } = response.body
-    console.log('🚀 ~ it ~ username:', username)
 
     expect(response.status).toBe(201)
     expect(username).toBe(user.username)
