@@ -4,7 +4,7 @@
   "description": "",
   "author": "Brando Vidal",
   "scripts": {
-    "deps": "pnpm run db:stop && pnpm run db:init && pnpm run db:migrate",
+    "deps": "pnpm run db:stop && pnpm run db:init && pnpm run db:migrate && pnpm run db:seed",
     "build": "nest build",
     "dev": "dotenv -e .env.dev -- nest start --watch",
     "start": "nest start",

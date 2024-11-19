@@ -1,4 +1,5 @@
 // prisma/seed.ts
+import { Logger } from '@nestjs/common'
 import { PrismaClient } from '@prisma/client'
 import * as bcrypt from 'bcrypt'
 
@@ -8,6 +9,8 @@ const prisma = new PrismaClient()
 const ROUNDS_OF_HASHING = 10
 
 async function main() {
+  const logger = new Logger('Seed')
+
   // create two dummy users
   const passwordAdmin = await bcrypt.hash('admin', ROUNDS_OF_HASHING)
   const passwordUser = await bcrypt.hash('user', ROUNDS_OF_HASHING)
@@ -38,7 +41,7 @@ async function main() {
     }
   })
 
-  console.log({ user1, user2 })
+  logger.log({ user1, user2 })
 }
 
 main()

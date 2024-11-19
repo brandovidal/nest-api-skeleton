@@ -65,11 +65,7 @@ describe('AppController (e2e)', () => {
       name: 'Test User'
     }
 
-    console.log({ accessToken, userId, updatedUser })
     const response = await request(app.getHttpServer()).put(`/user/${userId}`).set('authorization', `Bearer ${accessToken}`).send(updatedUser)
-
-    const { status } = response
-    console.log({ status })
 
     const { username } = response.body
 
