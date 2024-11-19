@@ -6,7 +6,6 @@ import { ExtractJwt, Strategy } from 'passport-jwt'
 import { AuthService } from './auth.service'
 import { UserService } from '@/models/user/user.service'
 
-import { JWT_SECRET_KEY } from '@/common/constants/jwt.constant'
 import { UnauthorizedException } from '@/common/exceptions/unauthorized.exception'
 
 import { User } from '@/models/user/entities/user.entity'
@@ -17,10 +16,11 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     private authService: AuthService,
     private userService: UserService
   ) {
+    const secretKey = process.env.JWT_SECRET_KEY
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: JWT_SECRET_KEY
+      secretOrKey: secretKey
     })
   }
 
