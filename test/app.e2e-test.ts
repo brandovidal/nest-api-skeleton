@@ -51,7 +51,7 @@ describe('AppController (e2e)', () => {
   }
 
   it('Should sign up a new user (POST)', async () => {
-    const response = await request(app.getHttpServer()).post('/auth/sign-up').send(user)
+    const response = await request(app.getHttpServer()).post('/auth/sign-up').send(user).set('authorization', `Bearer ${accessToken}`)
 
     const { id, username } = response.body
 
@@ -65,7 +65,7 @@ describe('AppController (e2e)', () => {
       name: 'Test User'
     }
 
-    const response = await request(app.getHttpServer()).put(`/user/${userId}`).set('authorization', `Bearer ${accessToken}`).send(updatedUser)
+    const response = await request(app.getHttpServer()).put(`/user/${userId}`).send(updatedUser).set('authorization', `Bearer ${accessToken}`)
 
     const { username } = response.body
 
